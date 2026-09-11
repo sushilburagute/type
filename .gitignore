@@ -1,0 +1,21 @@
+node_modules
+dist
+coverage
+.tmp
+
+# env
+.env
+.env.*
+!.env.example
+
+# playwright
+playwright-report
+test-results
+blob-report
+
+# editors / os
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.local

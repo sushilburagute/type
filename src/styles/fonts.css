@@ -1,0 +1,14 @@
+/* the editor (and diff view) follow the user's chosen family; ui chrome stays mono */
+:root {
+  --font-editor: var(--font-mono);
+}
+[data-font='serif'] {
+  --font-editor: var(--font-serif);
+}
+[data-font='sans'] {
+  --font-editor: var(--font-sans);
+}
+
+.font-editor {
+  font-family: var(--font-editor);
+}

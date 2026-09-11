@@ -1,0 +1,63 @@
+/* raw tokens. semantic tailwind colours in index.css map onto these. */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --fg: #000000;
+  --muted: #6b6b6b;
+  --line: #e6e6e6;
+  --surface: #ffffff;
+  --surface-2: #f4f4f4;
+  --diff-add: #e3f6e8;
+  --diff-add-strong: #a9e6b9;
+  --diff-remove: #fde8e8;
+  --diff-remove-strong: #f7b8b8;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #000000;
+  --fg: #ffffff;
+  --muted: #8a8a8a;
+  --line: #222222;
+  --surface: #000000;
+  --surface-2: #141414;
+  --diff-add: #0f2e1a;
+  --diff-add-strong: #1f5a33;
+  --diff-remove: #3a1212;
+  --diff-remove-strong: #6b1f1f;
+}
+
+/* accents — slightly lighter under dark so contrast against the near-black bg holds */
+:root,
+[data-accent='blue'] {
+  --accent: #2563eb;
+  --accent-fg: #ffffff;
+  --accent-soft: #dbeafe;
+}
+[data-theme='dark'][data-accent='blue'],
+[data-theme='dark']:not([data-accent]) {
+  --accent: #3b82f6;
+  --accent-soft: #172554;
+}
+
+[data-accent='red'] {
+  --accent: #dc2626;
+  --accent-fg: #ffffff;
+  --accent-soft: #fee2e2;
+}
+[data-theme='dark'][data-accent='red'] {
+  --accent: #ef4444;
+  --accent-soft: #450a0a;
+}
+
+[data-accent='green'] {
+  --accent: #16a34a;
+  --accent-fg: #ffffff;
+  --accent-soft: #dcfce7;
+}
+[data-theme='dark'][data-accent='green'] {
+  --accent: #22c55e;
+  --accent-soft: #052e16;
+}

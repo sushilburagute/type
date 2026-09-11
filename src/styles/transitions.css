@@ -1,0 +1,70 @@
+/* theme toggle: circular reveal from the toggle button (set via --vt-x / --vt-y) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+  animation: reveal 320ms cubic-bezier(0.2, 0, 0, 1);
+}
+@keyframes reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+  to {
+    clip-path: circle(150vmax at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+}
+
+/* generic enter animations, opt-in via class */
+.anim-in {
+  animation: fade-up 180ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+.anim-pop {
+  animation: pop 160ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+/* native <dialog> and popovers get a subtle entrance */
+dialog[open] {
+  animation: pop 160ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+dialog::backdrop {
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* a new editor column fades up as it lands */
+.anim-col {
+  animation: fade-up 220ms cubic-bezier(0.2, 0, 0, 1) both;
+}

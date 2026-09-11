@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-accent="blue" data-font="mono">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>type — type, format, compare, copy.</title>
+    <meta
+      name="description"
+      content="a fast, minimal text scratchpad. paste, format, compare and copy text. nothing else."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href="https://type.sush.dev/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="type" />
+    <meta property="og:description" content="type, format, compare, copy. nothing else." />
+    <meta property="og:url" content="https://type.sush.dev/" />
+    <meta property="og:image" content="https://type.sush.dev/og.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // pre-hydration: apply persisted theme / accent / font before first paint so there is no flash.
+      // keep in sync with src/store/settings.store.ts (storage key + shape).
+      ;(function () {
+        try {
+          var raw = localStorage.getItem('type:settings')
+          var s = raw ? JSON.parse(raw).state || {} : {}
+          var theme = s.theme === 'light' || s.theme === 'dark' ? s.theme : null
+          if (!theme) theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          var d = document.documentElement.dataset
+          d.theme = theme
+          if (s.accent === 'red' || s.accent === 'green') d.accent = s.accent
+          if (s.font === 'serif' || s.font === 'sans') d.font = s.font
+        } catch (e) {
+          /* private mode / disabled storage: fall back to defaults */
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

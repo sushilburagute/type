@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+@import './theme.css';
+@import './fonts.css';
+@import './transitions.css';
+
+/* dark variant keys off the data-theme attribute set by the pre-hydration script */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/* inline so utilities reference the raw var and per-element overrides (data-theme / data-accent) cascade */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-diff-add: var(--diff-add);
+  --color-diff-add-strong: var(--diff-add-strong);
+  --color-diff-remove: var(--diff-remove);
+  --color-diff-remove-strong: var(--diff-remove-strong);
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-mono);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+    margin: 0;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 28%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  button,
+  select,
+  input {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  kbd {
+    font-family: var(--font-mono);
+  }
+
+  textarea {
+    font-family: var(--font-editor);
+  }
+}
