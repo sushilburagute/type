@@ -3,8 +3,8 @@
 @import './fonts.css';
 @import './transitions.css';
 
-/* dark variant keys off the data-theme attribute set by the pre-hydration script */
-@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+/* dark variant keys off the resolved colour scheme set by the pre-hydration script */
+@custom-variant dark (&:where([data-color-scheme='dark'], [data-color-scheme='dark'] *));
 
 @theme {
   --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;

@@ -17,7 +17,7 @@ live at [type.sush.dev](https://type.sush.dev).
 - compare any two editors with a git-style diff, split or unified, with word-level highlights
 - live stats: chars, words, lines, sentences, reading time
 - copy the whole editor in one click or one shortcut
-- light, dark and system themes with three accents and no flash on reload
+- system themes plus six VS Code-inspired palettes, with three accents and no flash on reload
 - mono, serif or sans editor font, loaded only when picked
 - everything persists in localStorage and survives a reload
 - keyboard first: every action has a shortcut, `?` lists them
@@ -47,7 +47,7 @@ native `ctrl+c`, `ctrl+v`, `ctrl+z` and friends are never overridden. more in [d
 ## fonts and themes
 
 - fonts: geist mono (default), newsreader (serif), space grotesk (sans). only geist mono ships on the critical path; the others load when you pick them.
-- themes: system, light, dark. toggling animates with a circular reveal, or switches instantly under `prefers-reduced-motion`.
+- themes: system, light, dark, dark modern, light modern, monokai, solarized dark, quiet light and abyss. switching animates with a circular reveal, or happens instantly under `prefers-reduced-motion`.
 - accents: blue, red, green. the accent drives focus rings, the wordmark, active states, diff highlights and text selection.
 - icons: phosphor.
 

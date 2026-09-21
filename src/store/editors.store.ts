@@ -22,6 +22,7 @@ export interface EditorsState extends PersistedEditors {
   /** returns true when the format applied, false when it threw (toast is shown) */
   applyFormat: (id: string, formatId: string) => boolean
   clearContent: (id: string) => void
+  clearAllContent: () => void
 }
 
 export const DEFAULT_TITLE = 'untitled'
@@ -148,6 +149,19 @@ export const useEditorsStore = create<EditorsState>()(
       clearContent: (id) => {
         if (get().editors[id]?.content) get().replaceContent(id, '')
       },
+
+      clearAllContent: () => {
+        set((s) => {
+          if (!s.order.some((id) => Boolean(s.editors[id]?.content))) return s
+          const now = Date.now()
+          const editors = { ...s.editors }
+          for (const id of s.order) {
+            const doc = editors[id]
+            if (doc?.content) editors[id] = { ...doc, content: '', rev: doc.rev + 1, updatedAt: now }
+          }
+          return { editors }
+        })
+      },
     }),
     {
       name: STORAGE_KEYS.editors,
@@ -176,3 +190,4 @@ export const selectActiveId = (s: EditorsState) => s.activeEditorId
 export const selectEditor = (id: string) => (s: EditorsState) => s.editors[id]
 export const selectContent = (id: string) => (s: EditorsState) => s.editors[id]?.content ?? ''
 export const selectEditorCount = (s: EditorsState) => s.order.length
+export const selectHasAnyContent = (s: EditorsState) => s.order.some((id) => Boolean(s.editors[id]?.content))

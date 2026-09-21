@@ -18,7 +18,7 @@ describe('HeaderMenu', () => {
     expect(screen.getByRole('dialog', { hidden: true })).toHaveAttribute('aria-label', 'menu')
     expect(screen.getByRole('radiogroup', { name: 'editor font', hidden: true })).toBeInTheDocument()
     expect(screen.getByRole('radiogroup', { name: 'accent colour', hidden: true })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /theme: system/i, hidden: true })).toBeInTheDocument()
+    expect(screen.getByRole('combobox', { name: 'theme', hidden: true })).toHaveValue('system')
   })
 
   it('opens shortcut help from the menu', () => {

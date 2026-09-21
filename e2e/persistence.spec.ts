@@ -33,14 +33,10 @@ test.describe('persistence', () => {
     const html = page.locator('html')
     await page.getByRole('button', { name: 'menu' }).click()
 
-    // theme cycles system → light → dark
-    const themeToggle = page.getByRole('button', { name: /^theme:/ })
-    for (let i = 0; i < 3 && (await themeToggle.getAttribute('data-theme-value')) !== 'dark'; i++) {
-      const before = (await themeToggle.getAttribute('data-theme-value')) ?? ''
-      await themeToggle.click()
-      await expect(themeToggle).not.toHaveAttribute('data-theme-value', before)
-    }
-    await expect(themeToggle).toHaveAttribute('data-theme-value', 'dark')
+    // choose a named theme from the appearance menu
+    const themePicker = page.getByRole('combobox', { name: 'theme' })
+    await themePicker.selectOption('dark')
+    await expect(themePicker).toHaveValue('dark')
     await expect(html).toHaveAttribute('data-theme', 'dark')
 
     await page.getByRole('radiogroup', { name: 'accent colour' }).getByRole('radio', { name: 'red' }).click()

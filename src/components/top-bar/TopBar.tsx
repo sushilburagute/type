@@ -1,19 +1,30 @@
-import { selectEditorCount, useEditorsStore } from '@/store/editors.store'
+import { selectEditorCount, selectHasAnyContent, useEditorsStore } from '@/store/editors.store'
 import { useUiStore } from '@/store/ui.store'
 import { flushInput } from '@/hooks/useEditorContent'
 import { track } from '@/utils/analytics'
 import { IconButton } from '@/components/ui/IconButton'
-import { GitDiffIcon } from '@/components/ui/icons'
+import { EraserIcon, GitDiffIcon } from '@/components/ui/icons'
 import { HeaderMenu } from '@/components/header-menu/HeaderMenu'
 
 export function TopBar() {
   const count = useEditorsStore(selectEditorCount)
+  const clearAllContent = useEditorsStore((s) => s.clearAllContent)
   const setCompareOpen = useUiStore((s) => s.setCompareOpen)
 
   const openCompare = () => {
     flushInput()
     setCompareOpen(true)
     track('compare_open')
+  }
+
+  const clearAll = () => {
+    flushInput()
+    const state = useEditorsStore.getState()
+    if (!selectHasAnyContent(state)) return
+    if (!window.confirm('clear all open editors? all text will be lost.')) return
+    clearAllContent()
+    useUiStore.getState().pushToast('all editors cleared')
+    track('clear_all', { editors: count })
   }
 
   return (
@@ -27,6 +38,7 @@ export function TopBar() {
         onClick={openCompare}
         disabled={count < 2}
       />
+      <IconButton icon={EraserIcon} label="clear all editors" onClick={clearAll} />
       <HeaderMenu />
     </header>
   )

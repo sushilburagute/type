@@ -7,6 +7,7 @@ import { copyText } from '@/utils/clipboard'
 import { flushInput } from '@/hooks/useEditorContent'
 import { runViewTransition } from '@/hooks/useViewTransition'
 import { track } from '@/utils/analytics'
+import { isDarkTheme } from '@/constants/themes'
 
 function isEditable(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false
@@ -16,7 +17,7 @@ function isEditable(target: EventTarget | null): boolean {
 export function toggleTheme(origin?: { x: number; y: number }): void {
   const { theme, setTheme } = useSettingsStore.getState()
   const isDark =
-    theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    theme === 'system' ? window.matchMedia('(prefers-color-scheme: dark)').matches : isDarkTheme(theme)
   runViewTransition(() => setTheme(isDark ? 'light' : 'dark'), origin)
 }
 

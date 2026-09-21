@@ -38,12 +38,14 @@ three zustand stores in `src/store/`.
   editors: Record<id, { id, title, content, rev, createdAt, updatedAt }>,
   order: string[],
   activeEditorId: string | null,
-  addEditor, removeEditor, setContent, replaceContent, setTitle, setActive, applyFormat, clearContent
+  addEditor, removeEditor, setContent, replaceContent, setTitle, setActive,
+  applyFormat, clearContent, clearAllContent
 }
 
 // settings.store.ts — persisted as 'type:settings', version 1, written synchronously
 {
-  theme: 'system' | 'light' | 'dark',
+  theme: 'system' | 'light' | 'dark' | 'dark-modern' | 'light-modern' |
+         'monokai' | 'solarized-dark' | 'quiet-light' | 'abyss',
   accent: 'blue' | 'red' | 'green',
   font: 'mono' | 'serif' | 'sans',
   diffMode: 'split' | 'unified',
@@ -96,13 +98,13 @@ the three overlays are `React.lazy` in `src/components/app-shell/AppShell.tsx` b
 ```
 localStorage['type:settings']
   └─ inline script in index.html (runs before first paint)
-       └─ <html data-theme="light|dark" data-accent="…" data-font="…">
+       └─ <html data-theme="resolved-palette" data-color-scheme="light|dark" data-accent="…" data-font="…">
             └─ src/styles/theme.css: [data-theme] and [data-accent] set raw vars (--bg, --fg, --accent, …)
                  └─ src/styles/index.css: @theme inline maps them to tailwind tokens (--color-bg, --color-accent, …)
                       └─ utilities like bg-bg, text-accent, border-line
 ```
 
-`useTheme` mirrors the settings store onto the same `data-*` attributes after hydration and re-resolves `system` when the os preference changes. `data-theme` is always `light` or `dark`; `system` is resolved before it reaches the dom. the theme toggle wraps the change in `document.startViewTransition` for a circular reveal. see [theming.md](theming.md).
+`useTheme` mirrors the settings store onto the same `data-*` attributes after hydration and re-resolves `system` when the os preference changes. `data-theme` always contains a resolved palette; `system` is resolved before it reaches the dom. `data-color-scheme` lets dark palettes share contrast rules. the theme picker wraps changes in `document.startViewTransition` for a circular reveal. see [theming.md](theming.md).
 
 ## diff pipeline
 

@@ -7,6 +7,7 @@ import {
   selectContent,
   selectEditor,
   selectEditorCount,
+  selectHasAnyContent,
   selectOrder,
   useEditorsStore,
 } from '@/store/editors.store'
@@ -250,6 +251,28 @@ describe('editors store', () => {
     })
   })
 
+  describe('clearAllContent', () => {
+    it('clears every non-empty editor in one update and bumps their revisions', () => {
+      const a = first()
+      const b = store().addEditor()!
+      const c = store().addEditor()!
+      store().setContent(a, 'first')
+      store().setContent(b, 'second')
+
+      store().clearAllContent()
+
+      expect(doc(a)).toMatchObject({ content: '', rev: 1 })
+      expect(doc(b)).toMatchObject({ content: '', rev: 1 })
+      expect(doc(c)).toMatchObject({ content: '', rev: 0 })
+    })
+
+    it('is a no-op when every editor is empty', () => {
+      const before = store().editors
+      store().clearAllContent()
+      expect(store().editors).toBe(before)
+    })
+  })
+
   describe('selectors', () => {
     it('read the expected slices', () => {
       const id = first()
@@ -261,6 +284,7 @@ describe('editors store', () => {
       expect(selectContent(id)(s)).toBe('abc')
       expect(selectContent('nope')(s)).toBe('')
       expect(selectEditorCount(s)).toBe(1)
+      expect(selectHasAnyContent(s)).toBe(true)
     })
   })
 

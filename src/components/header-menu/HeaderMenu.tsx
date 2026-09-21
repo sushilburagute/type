@@ -4,7 +4,7 @@ import { IconButton } from '@/components/ui/IconButton'
 import { KeyboardIcon, ListIcon } from '@/components/ui/icons'
 import { FontPicker } from '@/components/font-picker/FontPicker'
 import { AccentPicker } from '@/components/accent-picker/AccentPicker'
-import { ThemeToggle } from '@/components/theme-toggle/ThemeToggle'
+import { ThemePicker } from '@/components/theme-picker/ThemePicker'
 
 export function HeaderMenu() {
   const popoverId = useId()
@@ -28,9 +28,11 @@ export function HeaderMenu() {
         className="anim-pop fixed inset-auto top-[3.75rem] right-2 m-0 hidden w-[min(22rem,calc(100vw-1rem))] rounded-xl border border-line bg-bg p-4 text-fg shadow-2xl [&:popover-open]:block"
       >
         <p className="mb-3 text-[11px] font-bold tracking-wider text-muted">appearance</p>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center">
           <FontPicker />
-          <ThemeToggle />
+        </div>
+        <div className="mt-3 border-t border-line pt-3">
+          <ThemePicker />
         </div>
         <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
           <span className="text-xs font-bold text-muted">accent</span>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light" data-accent="blue" data-font="mono">
+<html lang="en" data-theme="light" data-color-scheme="light" data-accent="blue" data-font="mono">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -27,10 +27,22 @@
         try {
           var raw = localStorage.getItem('type:settings')
           var s = raw ? JSON.parse(raw).state || {} : {}
-          var theme = s.theme === 'light' || s.theme === 'dark' ? s.theme : null
+          var themes = [
+            'light',
+            'dark',
+            'dark-modern',
+            'light-modern',
+            'monokai',
+            'solarized-dark',
+            'quiet-light',
+            'abyss',
+          ]
+          var darkThemes = ['dark', 'dark-modern', 'monokai', 'solarized-dark', 'abyss']
+          var theme = themes.indexOf(s.theme) >= 0 ? s.theme : null
           if (!theme) theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
           var d = document.documentElement.dataset
           d.theme = theme
+          d.colorScheme = darkThemes.indexOf(theme) >= 0 ? 'dark' : 'light'
           if (s.accent === 'red' || s.accent === 'green') d.accent = s.accent
           if (s.font === 'serif' || s.font === 'sans') d.font = s.font
         } catch (e) {

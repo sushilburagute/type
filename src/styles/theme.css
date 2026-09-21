@@ -29,6 +29,91 @@
   --diff-remove-strong: #6b1f1f;
 }
 
+/* editor palettes inspired by the built-in VS Code family. */
+[data-theme='dark-modern'] {
+  color-scheme: dark;
+  --bg: #181818;
+  --fg: #cccccc;
+  --muted: #969696;
+  --line: #2b2b2b;
+  --surface: #1f1f1f;
+  --surface-2: #2b2b2b;
+  --diff-add: #193c26;
+  --diff-add-strong: #28643d;
+  --diff-remove: #472222;
+  --diff-remove-strong: #743535;
+}
+
+[data-theme='light-modern'] {
+  color-scheme: light;
+  --bg: #f8f8f8;
+  --fg: #3b3b3b;
+  --muted: #6f6f6f;
+  --line: #dedede;
+  --surface: #ffffff;
+  --surface-2: #ececec;
+  --diff-add: #d8f0de;
+  --diff-add-strong: #9ed4aa;
+  --diff-remove: #f8dddd;
+  --diff-remove-strong: #e8aaaa;
+}
+
+[data-theme='monokai'] {
+  color-scheme: dark;
+  --bg: #272822;
+  --fg: #f8f8f2;
+  --muted: #a7a79f;
+  --line: #49483e;
+  --surface: #2d2e27;
+  --surface-2: #3e3d32;
+  --diff-add: #394528;
+  --diff-add-strong: #657a3e;
+  --diff-remove: #4d2929;
+  --diff-remove-strong: #7a4141;
+}
+
+[data-theme='solarized-dark'] {
+  color-scheme: dark;
+  --bg: #002b36;
+  --fg: #93a1a1;
+  --muted: #657b83;
+  --line: #174652;
+  --surface: #073642;
+  --surface-2: #0b3d49;
+  --diff-add: #184b3a;
+  --diff-add-strong: #2b6a50;
+  --diff-remove: #512f36;
+  --diff-remove-strong: #7b414b;
+}
+
+[data-theme='quiet-light'] {
+  color-scheme: light;
+  --bg: #f5f5f5;
+  --fg: #333333;
+  --muted: #777777;
+  --line: #d7d7d7;
+  --surface: #ffffff;
+  --surface-2: #e7e7e7;
+  --diff-add: #dcefdc;
+  --diff-add-strong: #a8d3a8;
+  --diff-remove: #f5dddd;
+  --diff-remove-strong: #dfa9a9;
+}
+
+[data-theme='abyss'] {
+  color-scheme: dark;
+  --bg: #000c18;
+  --fg: #b9c8e5;
+  --muted: #6688aa;
+  --line: #102a44;
+  --surface: #001625;
+  --surface-2: #002b46;
+  --diff-add: #123c38;
+  --diff-add-strong: #1f6259;
+  --diff-remove: #402038;
+  --diff-remove-strong: #6b355d;
+}
+
 /* accents — slightly lighter under dark so contrast against the near-black bg holds */
 :root,
 [data-accent='blue'] {
@@ -36,8 +121,8 @@
   --accent-fg: #ffffff;
   --accent-soft: #dbeafe;
 }
-[data-theme='dark'][data-accent='blue'],
-[data-theme='dark']:not([data-accent]) {
+[data-color-scheme='dark'][data-accent='blue'],
+[data-color-scheme='dark']:not([data-accent]) {
   --accent: #3b82f6;
   --accent-soft: #172554;
 }
@@ -47,7 +132,7 @@
   --accent-fg: #ffffff;
   --accent-soft: #fee2e2;
 }
-[data-theme='dark'][data-accent='red'] {
+[data-color-scheme='dark'][data-accent='red'] {
   --accent: #ef4444;
   --accent-soft: #450a0a;
 }
@@ -57,7 +142,7 @@
   --accent-fg: #ffffff;
   --accent-soft: #dcfce7;
 }
-[data-theme='dark'][data-accent='green'] {
+[data-color-scheme='dark'][data-accent='green'] {
   --accent: #22c55e;
   --accent-soft: #052e16;
 }

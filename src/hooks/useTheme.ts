@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useSettingsStore } from '@/store/settings.store'
 import { PREFERS_DARK, useMediaQuery } from '@/hooks/useMediaQuery'
 import { type ResolvedTheme, type Theme } from '@/types/settings'
+import { isDarkTheme } from '@/constants/themes'
 
 export function resolveTheme(theme: Theme, systemDark: boolean): ResolvedTheme {
   return theme === 'system' ? (systemDark ? 'dark' : 'light') : theme
@@ -21,6 +22,7 @@ export function useTheme(): { theme: Theme; resolved: ResolvedTheme } {
   useEffect(() => {
     const d = document.documentElement.dataset
     d.theme = resolved
+    d.colorScheme = isDarkTheme(resolved) ? 'dark' : 'light'
     d.accent = accent
     d.font = font
   }, [resolved, accent, font])
